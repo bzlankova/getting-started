@@ -1,5 +1,3 @@
-name: GettingStarted_Container_Workflow
-
 on:
   push:
     branches:
@@ -37,13 +35,14 @@ jobs:
       - name: Deploy to Azure Container Instances
         uses: azure/aci-deploy@v1
         with:
-          resource-group: RGR-ACR
-          name: myapp-container-${{ github.run_number }}
+          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          dns-name-label: getting-started-${{ github.run_number }}
           image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          location: eastus
+          name: getting-started-github
+          location: westeurope
           cpu: 1
           memory: 1.5
           port: 80
