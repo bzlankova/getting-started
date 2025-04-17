@@ -35,6 +35,9 @@ jobs:
       - name: Deploy to Azure Container Instances
         uses: azure/aci-deploy@v1
         with:
+        cpu: 1
+          memory: 1.5
+          port: 3000
           resource-group: ${{ secrets.RESOURCE_GROUP }}
           dns-name-label: getting-started-${{ github.run_number }}
           image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}
@@ -43,6 +46,4 @@ jobs:
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: getting-started-github
           location: westeurope
-          cpu: 1
-          memory: 1.5
-          port: 3000
+          
